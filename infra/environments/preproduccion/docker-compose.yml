@@ -1,0 +1,39 @@
+services:
+
+  proxy_backend:
+    image: registrygitlab.ssaver.gob.mx/graphql/api-graphql/proxy:latest-test
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - target: 443
+        published: 4289
+    networks:
+      - cae-services
+    secrets:
+      - source: 2025ssaver_crt_complete
+        target: /cert/ssaver.gob.mx.crt
+      - source: 2025ssaver_key
+        target: /cert/ssaver.gob.mx.key
+    deploy:
+      replicas: 1
+    depends_on:
+      - app
+
+  app:
+    image: registrygitlab.ssaver.gob.mx/graphql/api-graphql/app:latest-test
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      replicas: 1
+    networks:
+      - cae-services
+
+networks:
+  cae-services:
+    external: true
+
+secrets:
+  2025ssaver_key:
+    external: true
+  2025ssaver_crt_complete:
+    external: true

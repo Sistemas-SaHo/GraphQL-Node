@@ -1,0 +1,6 @@
+/build
+/node_modules
+.env
+infra/environments/preproduccion/.env
+infra/environments/produccion/.env
+infra/cert/ 

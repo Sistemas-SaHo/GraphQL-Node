@@ -1,0 +1,19 @@
+services:
+
+  proxy_backend:
+    image: registrygitlab.ssaver.gob.mx/graphql/api-graphql/proxy:latest-test
+    container_name: proxy-graphql
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 4289:443
+
+  app:
+    image: registrygitlab.ssaver.gob.mx/graphql/api-graphql/app:latest-test
+    container_name: app-graphql
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 3289:3000

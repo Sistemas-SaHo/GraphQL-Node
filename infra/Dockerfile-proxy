@@ -1,0 +1,7 @@
+FROM nginx:1.28.0 
+WORKDIR /var/www/html/jornadas
+COPY infra/configs/default.conf /etc/nginx/conf.d/default.conf
+COPY --chown=node:node infra/cert/ /cert/
+EXPOSE 443
+
+CMD ["nginx", "-g", "daemon off;"] 
